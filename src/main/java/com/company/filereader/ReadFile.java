@@ -9,7 +9,7 @@ import static tech.tablesaw.api.ColumnType.*;
 
 public class ReadFile {
 
-    private Table tableDax;
+    private int tableDax;
 
 
     public void ReadCsv() throws Exception {
@@ -27,8 +27,8 @@ public class ReadFile {
 
         CsvReadOptions options = builder.build();
 
-        this.tableDax = Table.read().usingOptions(options);
-
+        //this.tableDax = Table.read().usingOptions(options);
+        this.tableDax = 2;
 
         //System.out.println(tableDax);
 
@@ -38,9 +38,9 @@ public class ReadFile {
         LocalDate date1 = LocalDate.of(2020, 1, 14);
         LocalDate date2 = LocalDate.of(2020, 1, 16);
 
-        Table filtered = tableDax.where(
-                tableDax.dateColumn("C0").isBetweenIncluding(date1, date2)
-                        .and(tableDax.numberColumn("C4").isGreaterThan(13000)));
+//        Table filtered = tableDax.where(
+//                tableDax.dateColumn("C0").isBetweenIncluding(date1, date2)
+//                        .and(tableDax.numberColumn("C4").isGreaterThan(13000)));
 
         //System.out.println(filtered);
 
@@ -48,7 +48,7 @@ public class ReadFile {
 
     }
 
-    public Table getDaxData() {
+    public int getTableDax() {
         return this.tableDax;
     }
 }
