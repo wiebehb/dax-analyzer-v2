@@ -49,6 +49,6 @@ public class ReadFile {
     }
 
     public Table getDaxData() {
-        return tableDax;
+        return this.tableDax;
     }
 }
