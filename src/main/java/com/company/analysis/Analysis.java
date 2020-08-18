@@ -7,6 +7,6 @@ public class Analysis {
 
     public void GetDates() throws Exception {
         ReadFile r = new ReadFile();
-        System.out.println(r.table_dax);
+        System.out.println(r.getDaxData());
     }
 }
