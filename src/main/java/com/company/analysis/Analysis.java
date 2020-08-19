@@ -1,14 +1,15 @@
 package com.company.analysis;
 
 import com.company.filereader.ReadFile;
+import tech.tablesaw.aggregate.Summarizer;
 import tech.tablesaw.api.Table;
-
 import java.time.LocalDate;
 import tech.tablesaw.api.*;
 import tech.tablesaw.io.csv.*;
 import tech.tablesaw.selection.Selection;
 import java.time.*;
 import static tech.tablesaw.api.ColumnType.*;
+import static tech.tablesaw.aggregate.AggregateFunctions.*;
 
 
 public class Analysis {
