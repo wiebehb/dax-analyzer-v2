@@ -1,10 +1,12 @@
 package com.company.analysis;
 
 import com.company.filereader.ReadFile;
+import it.unimi.dsi.fastutil.floats.FloatArrayList;
 import tech.tablesaw.aggregate.Summarizer;
 import tech.tablesaw.api.Table;
 import java.time.LocalDate;
 import tech.tablesaw.api.*;
+import tech.tablesaw.columns.Column;
 import tech.tablesaw.io.csv.*;
 import tech.tablesaw.selection.Selection;
 import java.time.*;
@@ -31,11 +33,19 @@ public class Analysis {
         r.ReadCsv();
 
 
-
         Table filtered = r.getTableDax().where(
-                r.getTableDax().dateColumn("C0").isBetweenIncluding(this.beginDate, this.endDate)
-                        .and(r.getTableDax().numberColumn("C4").isGreaterThan(13000)));
+                r.getTableDax().dateColumn("C0").isBetweenIncluding(this.beginDate, this.endDate));
 
-        System.out.println(filtered);
+
+        Table summary = filtered.summarize("C2", "C3", "C4", "C5", min, max)
+                .by(filtered.dateColumn("C0"));
+
+
+        Column<?> three = summary.column("C2");
+
+
+        System.out.println(three);
+
+
     }
 }
