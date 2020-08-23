@@ -19,7 +19,7 @@ public class ReadFile {
 
         /* csv in order: Date, Minutes, Open, High, Low, Close, Volume.  */
 
-        ColumnType[] types = {LOCAL_DATE, SKIP, FLOAT, FLOAT, FLOAT, FLOAT, SKIP};
+        ColumnType[] types = {LOCAL_DATE, SKIP, SKIP, FLOAT, FLOAT, SKIP, SKIP}; // only import date, high and low
 
         CsvReadOptions.Builder builder =
                 CsvReadOptions.builder("/Users/wiebehb/Documents/dax/dax-1m.csv")
@@ -31,7 +31,6 @@ public class ReadFile {
         CsvReadOptions options = builder.build();
 
         tableDax = Table.read().usingOptions(options);
-
 
         //System.out.println(tableDax);
     }

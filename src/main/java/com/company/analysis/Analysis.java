@@ -10,6 +10,9 @@ import tech.tablesaw.columns.Column;
 import tech.tablesaw.io.csv.*;
 import tech.tablesaw.selection.Selection;
 import java.time.*;
+import java.util.Arrays;
+import java.util.Collections;
+
 import static tech.tablesaw.api.ColumnType.*;
 import static tech.tablesaw.aggregate.AggregateFunctions.*;
 
@@ -21,8 +24,8 @@ public class Analysis {
 
 
     public Analysis(LocalDate date1, LocalDate date2) {
-        this.beginDate = date1;
-        this.endDate = date2;
+        this.beginDate = date1; // start date
+        this.endDate = date2; // end date
     }
 
 
@@ -33,18 +36,47 @@ public class Analysis {
         r.ReadCsv();
 
 
-        Table filtered = r.getTableDax().where(
+        /* select dax data within selected time frame */
+        Table daxTimeFiltered = r.getTableDax().where(
                 r.getTableDax().dateColumn("C0").isBetweenIncluding(this.beginDate, this.endDate));
 
 
-        Table summary = filtered.summarize("C2", "C3", "C4", "C5", min, max)
-                .by(filtered.dateColumn("C0"));
+        /* select columns: Open, High, Low, Close */
+        Table tableDaxHighLow = daxTimeFiltered.summarize("C3", "C4", min, max)
+                .by(daxTimeFiltered.dateColumn("C0"));
+
+        //System.out.println(summary);
 
 
-        Column<?> three = summary.column("C2");
+        /* new Table with date, min and max */
+        Table tableDaxDayMinMax = Table.create("tableDaxMinMax");
 
 
-        System.out.println(three);
+        for (Row row : tableDaxHighLow) {
+            Double daxDayMin = row.getDouble("Min [C4]");
+            Double daxDayMax = row.getDouble("Max [C3]");
+
+            System.out.println(row.getDate("C0") + " min " + daxDayMin
+                    + " max " + daxDayMax);
+        }
+
+
+
+
+        // add min and max to new column table
+
+        // save to csv
+
+        //tableDaxMinMax.write().csv("filename.csv");
+
+
+
+
+
+
+
+
+        //System.out.println(summary);
 
 
     }
